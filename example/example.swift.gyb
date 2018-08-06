@@ -1,0 +1,26 @@
+// Adapted from https://nshipster.com/swift-gyb/
+
+%{ abilities = ['strength', 'dexterity', 'constitution',
+                'intelligence', 'wisdom', 'charisma']
+}%
+class Character {
+  let name: String
+
+% for ability in abilities:
+  var ${ability}: Int
+% end
+
+  init(
+    name: String,
+% for ability in abilities[:-1]:
+    ${ability}: Int = 0,
+% end
+    ${abilities[-1]}: Int = 0
+  ) {
+    self.name = name
+% for ability in abilities:
+    self.${ability} = ${ability}
+% end
+  }
+}
+
